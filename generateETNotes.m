@@ -13,7 +13,7 @@ for i=startIndex:endIndex
     index = index+1;
 end
 
-tolerance_bands = zeros(2,88);
+tolerance_bands = zeros(2,endIndex-startIndex+1);
 for i = 1:88
     tolerance_bands(1,i) = changeByCents(et_notes(i), -1*max_cent_change);
     tolerance_bands(2,i) = changeByCents(et_notes(i), max_cent_change);

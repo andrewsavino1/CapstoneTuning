@@ -4,8 +4,10 @@ function [outputFreqs] = Algorithm1(InputIndexes)
 
 %adjustable params:
 max_multiple = 12;
+low_index = 1;
+high_index = 88;
 
-[ET_notes, ET_tolerance_bands] = generateETNotes(1,88);
+[ET_notes, ET_tolerance_bands] = generateETNotes(low_index,high_index);
 
 
 num_notes = length(InputIndexes);
