@@ -3,7 +3,7 @@ function [outputFreqs] = Algorithm1(InputIndexes)
 %original notes as little as possible
 
 %adjustable params:
-max_multiple = 12;
+max_multiple = 24;
 low_index = 1;
 high_index = 88;
 
