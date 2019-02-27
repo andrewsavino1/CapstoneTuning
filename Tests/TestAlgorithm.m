@@ -10,8 +10,11 @@ end
 function testMajorChord(testCase)
     algorithm = @Algorithm1;
     basenote = n('A', 4);
-    majorChord = [basenote, basenote+4, basenote+7]
-    outputFreqs = algorithm(majorChord);
+    majorChord = [basenote, basenote+4, basenote+7];
+    low_index = 1;
+    high_index = 88;
+    [ET_notes, ET_tolerance_bands] = generateETNotes(low_index,high_index);
+    outputFreqs = algorithm(majorChord, ET_notes, ET_tolerance_bands);
     
     verifyEqual(testCase, outputFreqs(2)/5, outputFreqs(1)/4,...
         'Third of major chord is incorrect')
@@ -23,7 +26,11 @@ function testMinorChord(testCase)
     algorithm = @Algorithm1;
 	basenote = n('C', 4);
     majorChord = [basenote, basenote+3, basenote+7];
-    outputFreqs = algorithm(majorChord);
+    low_index = 1;
+    high_index = 88;
+
+    [ET_notes, ET_tolerance_bands] = generateETNotes(low_index,high_index);
+    outputFreqs = algorithm(majorChord, ET_notes, ET_tolerance_bands);
     
     verifyEqual(testCase, outputFreqs(2)/6, outputFreqs(1)/5,...
         'Third of major chord is incorrect')
