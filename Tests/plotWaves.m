@@ -14,8 +14,7 @@ hold on
 y = sin(beforeFreqs' .* x);
 xlim([0,outer_lim])
 plot(x,y)
-plot(x, sum(y), 'LineWidth',3)
-xlabel(beforeFreqs')
+plot(x, sum(y), 'LineWidth',4)
 legendCell = cellstr(num2str(beforeFreqs', '%-d'));
 legend(legendCell)
 
@@ -26,13 +25,12 @@ title('Algorithm input')
 %% 'after' graph
 subplot(1,2,2);
 hold on
-y = sin(beforeFreqs' .* x);
+y = sin(afterFreqs' .* x);
 plot(x,y)
-plot(x, sum(y), 'LineWidth',3)
+plot(x, sum(y), 'LineWidth',4)
 legendCell = cellstr(num2str(afterFreqs', '%-d'));
 legend(legendCell)
 xlim([0,outer_lim])
-xlabel(afterFreqs')
 
 legendCell = cellstr(num2str(afterFreqs', '%-d'));
 legend(legendCell)
