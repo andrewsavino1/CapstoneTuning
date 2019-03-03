@@ -41,7 +41,7 @@ Hopratio = SynthesisLen/AnalysisLen;
 %%
 % Create a System object to read in the input speech signal from an audio
 % file.
-reader = dsp.AudioFileReader('SpeechDFT-16-8-mono-5secs.wav', ...
+reader = dsp.AudioFileReader('benSingingC.wav', ...
   'SamplesPerFrame',AnalysisLen, ...
   'OutputDataType','double');
 
@@ -158,7 +158,7 @@ player(loggedSpeech.');
 
 %% 
 
-[signal,fs] = audioread('SpeechDFT-16-8-mono-5secs.wav');
+[signal,fs] = audioread('benSingingC.wav');
 signal = signal(:,1);
 plot(spectrogram(signal));
 
