@@ -4,14 +4,22 @@ audioFile = 'benSingingA.wav';
 
 [input_signal, fs] = audioread(audioFile);
 
-sound(input_signal, fs);
+% sound(input_signal, fs);
 
 t = 1:length(input_signal);
 
 %plot(t, input_signal)
+[max_amp, freq] = max(input_signal);
+
+freqSang = freq(:,1)/441;
+sound(freqSang, 8192);
+
+fprintf('The frequency sang was %.2f\n', freqSang);
+
+
 
 input_signal = input_signal(1:fs);
-spectrogram(input_signal, 256, [], [], fs, 'yaxis')
+spectrogram(input_signal, 256, [], [], fs, 'xaxis')
 
 %s = spectrogram(input_signal);
 %spect(x, 'yaxis')
