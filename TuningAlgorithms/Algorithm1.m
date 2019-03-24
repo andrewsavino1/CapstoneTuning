@@ -9,9 +9,9 @@ max_multiple = 24;
 num_notes = length(InputIndexes);
 adj_distances = zeros(1, num_notes);
 for i = 1:(num_notes - 1)
-    adj_distances(i) = ET_notes(InputIndexes(i+1)) - ET_notes(InputIndexes(i));
+    adj_distances(i) = ET_notes(InputIndexes(i+1)-offset) - ET_notes(InputIndexes(i)-offset);
 end
-adj_distances(num_notes) = ET_notes(InputIndexes(1));
+adj_distances(num_notes) = ET_notes(InputIndexes(1)-offset);
 
 starting_F = min(adj_distances);
 
@@ -20,11 +20,12 @@ Findex = find(ET_notes > starting_F, 1);
 
 while 1
     if Findex == 0
-        outputFreqs = [];  % if doesn't work should probably just play original freqs
+        outputFreqs = ET_notes(InputIndexes-offset);  % if doesn't work should probably just play original freqs
+        F = 0;
         break
     end
     F = ET_notes(Findex);
-    max_overtones = min(ET_tolerance_bands(2,num_notes), max_multiple);
+    max_overtones = max_multiple;%min(ET_tolerance_bands(2,num_notes), max_multiple);
     multipleF = F.*(1:max_overtones);
     ovt = 1;
     outputFreqs = zeros(1,num_notes);
