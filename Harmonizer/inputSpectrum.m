@@ -1,4 +1,4 @@
-%% Method for analyzing freq spectrum of input audio signal
+% Method for analyzing freq spectrum of input audio signal
 
 audioFile1 = 'jonah_A_Ah.wav';
 audioFile2 = 'jonah_F_Oo.wav';
@@ -9,7 +9,7 @@ audioFile3 = 'jonah_E_Oo.wav';
 [input_signal3, fs3] = audioread(audioFile3);
 
 % Capture 8192 samples at 44.1kHz sample rate
-%Nsamps = 8192;
+% Nsamps = 8192;
 fsamp = 44100;
 Tsamp = 1/fsamp;
 t1 = 1:length(input_signal1);
@@ -22,14 +22,14 @@ t3 = 1:length(input_signal3);
 % ylabel('Amplitude'); 
 % xlabel('Time (secs)');
 % axis auto;
-%title('Input Signal -- Singing E4 with "Oo" vowel');
+% title('Input Signal -- Singing E4 with "Oo" vowel');
 
 % Choose FFT size and calculate spectrum
 Nfft = 1024;
 
 subplot(2,1,1)
 spectrogram(input_signal1(:,1),gausswin(Nfft),Nfft/2,Nfft,fsamp, 'yaxis');
-title('Singing E4 with "Oo" vowel');
+title('Singing A4 with "Ah" vowel');
 set(gca, 'yscale','log');
 
 
@@ -52,7 +52,7 @@ grid on;
 [~,loc] = max(Pxx);
 estimate = f(loc);
 FREQ_ESTIMATE_gaussian = estimate(1,:);
-%title('Periodogram Power Spectral Density Estimate');
+% title('Periodogram Power Spectral Density Estimate');
 title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian(1)),' Hz']);
 
 % sound(input_signal1, 44100)
@@ -61,25 +61,3 @@ title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian(1)),' Hz']);
 % sound(input_signal, (6/5)*44100)
 % %sound(input_signal, (7/4)*44100)
 % sound(input_signal, (8/5)*44100)
-
-%%
-% % sound(input_signal, fs);
-% 
-% %t = 1:length(input_signal);
-% %plot(t, input_signal)
-% 
-% input_seg = input_signal(1:fs);
-% abs_seg = abs(input_seg);
-% 
-% [max_amp, freq] = max(input_signal, 5)
-% 
-% freqSang = freq(:,1)/44100;
-% sound(freqSang, 44100);
-% 
-% input_signal = input_signal(1:fs);
-% fprintf('The frequency sang was %.2f\n', freqSang);
-% 
-% 
-% spectrogram(input_signal, 256, [], [], fs, 'xaxis')
-
-
