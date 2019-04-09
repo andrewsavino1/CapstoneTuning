@@ -1,6 +1,6 @@
 % Method for analyzing freq spectrum of input audio signal
 
-audioFile1 = 'jonah_A_Ah.wav';
+audioFile1 = 'benSingingC.wav';
 audioFile2 = 'jonah_F_Oo.wav';
 audioFile3 = 'jonah_E_Oo.wav';
 
@@ -49,11 +49,21 @@ axis auto;
 grid on;
 
 % Get frequency estimate (spectral peak)
-[~,loc] = max(Pxx);
-estimate = f(loc);
-FREQ_ESTIMATE_gaussian = estimate(1,:);
+[~,loc] = max(Pxx1);
+estimate1 = f1(loc);
+estimate2 = f1(loc)*(3/2);
+estimate3 = f1(loc)*(6/5);
+estimate4 = f1(loc)*(8/5);
+
+FREQ_ESTIMATE_gaussian1 = estimate1(1,:);
+FREQ_ESTIMATE_gaussian2 = estimate2(1,:);
+FREQ_ESTIMATE_gaussian3 = estimate3(1,:);
+FREQ_ESTIMATE_gaussian4 = estimate4(1,:);
+
+
 % title('Periodogram Power Spectral Density Estimate');
-title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian(1)),' Hz']);
+title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian1(1)),' Hz']);
+
 
 % sound(input_signal1, 44100)
 % sound(input_signal, (3/2)*44100)
