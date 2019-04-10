@@ -31,7 +31,7 @@ numNotes = 5;
 times = zeros(1,100);
 outputs = zeros(100,numNotes);
 funds = zeros(1,100);
-for i = 1:100
+for i = 1:1000
    chord = sort(datasample(notes, numNotes,'Replace', false));
    
    tic
@@ -45,6 +45,7 @@ histogram(times)
 xlabel('Time (seconds)')
 ylabel('Frequency')
 title('Runtime of 5-note Chords')
+convergence_Rate = 1 -( nnz(~funds))/1000
                
                
                

@@ -4,10 +4,15 @@ function [outputFreqs, F] = Algorithm1(InputIndexes, ET_notes, ET_tolerance_band
 tic  % start timer
 
 %adjustable params:
-max_multiple = 24;
+max_multiple = 32;
 
 num_notes = length(InputIndexes);
 adj_distances = zeros(1, num_notes);
+
+%Standardize the the indexes to ideally start sufficiently high up
+standardization =  length(ET_notes) -InputIndexes(length(InputIndexes)) + offset;
+InputIndexes = standardization + InputIndexes;
+
 for i = 1:(num_notes - 1)
     adj_distances(i) = ET_notes(InputIndexes(i+1)-offset) - ET_notes(InputIndexes(i)-offset);
 end
@@ -38,7 +43,7 @@ while 1
            corrected_freq = multipleF(ovt);
            ovt = ovt+1;
            if corrected_freq >= low_bound && corrected_freq <= up_bound
-               outputFreqs(note) = corrected_freq;
+               outputFreqs(note) = corrected_freq * 2^(-standardization/12);
                break;
            end
         end
