@@ -2,7 +2,7 @@
 % Choose FFT size and calculate spectrum
 Nfft = 1024;
 
-audioFile1 = 'benSingingC.wav';
+audioFile1 = 'three_note_progression.wav';
 
 audioFile2 = 'jonah_F_Oo.wav';
 audioFile3 = 'jonah_E_Oo.wav';
