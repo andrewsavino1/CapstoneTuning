@@ -49,6 +49,7 @@ while 1
     else
         break;
     end
+    disp(outputFreqs);
 end
 toc  %end timer
 
