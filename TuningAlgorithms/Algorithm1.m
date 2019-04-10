@@ -52,6 +52,7 @@ while 1
         outputFreqs = [];
         Findex = Findex - 1;
     else
+        F = F* 2^(-standardization/12);
         break;
     end
     disp(outputFreqs);
