@@ -65,9 +65,9 @@ FREQ_ESTIMATE_gaussian4 = estimate4(1,:);
 title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian1(1)),' Hz']);
 
 
-% sound(input_signal1, 44100)
-% sound(input_signal, (3/2)*44100)
+sound(input_signal1, 44100)
+sound(input_signal1, (3/2)*44100)
 % %sound(input_signal, (5/4)*44100)
-% sound(input_signal, (6/5)*44100)
+sound(input_signal1, (6/5)*44100)
 % %sound(input_signal, (7/4)*44100)
-% sound(input_signal, (8/5)*44100)
+sound(input_signal1, (8/5)*44100)
