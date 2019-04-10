@@ -2,7 +2,7 @@
 mic_sr = 44100;                 % sample rate of mic input
 spf = 1024;                     % samples per frame in mic input (default)
 mic_update_fr = spf/mic_sr;     % rate at which we run pitch detection
-
+Nfft = spf;
 
 %% Algorithm setup
 low_index = -20;
@@ -56,6 +56,7 @@ while true
     if next_mic_read <= toc
         
         % find the pitch of the sampled input
+        % TODO invesitage audio toolbox' pitch command
         d_sample = deviceReader();
         [Pxx1, f1] = pwelch(d_sample, gausswin(Nfft),Nfft/2,Nfft,sr);
         [~,loc] = max(Pxx1);
