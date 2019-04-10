@@ -1,4 +1,4 @@
-[d,sr]=audioread('benSingingC.wav'); 
+[d,sr]=audioread('benSingingE.wav'); 
 samp_freq = .2;
 rec_len = length(d)/sr;
 num_chords = 4;
@@ -20,7 +20,7 @@ chords = [37 41 44;
 chords = chords +1;
       
 tic()
-sound(d,sr)
+%sound(d,sr)
 for chord=1:num_chords
     notes = chords(chord,:);
    
@@ -28,7 +28,7 @@ for chord=1:num_chords
         
         % find the pitch of the sampled input
         i1 = uint32(sr*t + (chord-1)*(d_per_chord))+1;
-        i2 = i1 + uint32(sr*samp_freq);  %TODO - these are wrong
+        i2 = i1 + uint32(sr*samp_freq);  %TODO - these are wrong?
         d_sample = d(i1:i2,:);
         [Pxx1, f1] = pwelch(d_sample, gausswin(Nfft),Nfft/2,Nfft,sr);
         [~,loc] = max(Pxx1);
