@@ -1,6 +1,9 @@
 % Method for analyzing freq spectrum of input audio signal
+% Choose FFT size and calculate spectrum
+Nfft = 1024;
 
 audioFile1 = 'benSingingC.wav';
+
 audioFile2 = 'jonah_F_Oo.wav';
 audioFile3 = 'jonah_E_Oo.wav';
 
@@ -24,8 +27,7 @@ t3 = 1:length(input_signal3);
 % axis auto;
 % title('Input Signal -- Singing E4 with "Oo" vowel');
 
-% Choose FFT size and calculate spectrum
-Nfft = 1024;
+
 
 subplot(2,1,1)
 spectrogram(input_signal1(:,1),gausswin(Nfft),Nfft/2,Nfft,fsamp, 'yaxis');
