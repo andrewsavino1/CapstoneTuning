@@ -9,11 +9,13 @@ low_index = -20;
 high_index = 88;
 offset = low_index - 1;
 [ET_notes, ET_tolerance_bands] = generateETNotes(low_index,high_index);
+F = 1;
 
 
 %% MIDI device setup
-devName = 'Yamaha S08-1';
+devName = 'Yamaha CP40 STAGE-1';           % run mididevinfo to find name
 active_notes = zeros(0,1);
+accomp_freq = zeros(0,1);
 go = 1;
 MIDI_BIAS = -20;
 device = mididevice(devName);
@@ -33,22 +35,26 @@ tic()                           % use this to refresh at constant rate
 while true
     % update the currently played notes if new MIDI signals in buffer
     if hasdata(device)
-        receivedMessages = midireceive(device);
-        [num_messages,~] = size(receivedMessages);
-        for i=1:num_messages
+        inputMessages = midireceive(device);
+        [num_messages,~] = size(inputMessages);
+        for i=1:1:num_messages
             try
-                note = receivedMessages(i).Note + MIDI_BIAS;
-                if isNoteOff(recievedMessages(i))
+                if isNoteOn(inputMessages(i))
+                     note = inputMessages(i).Note + MIDI_BIAS;
+                     active_notes = [active_notes note];
+                     active_notes = sort([active_notes, note]);
+                end
+                if isNoteOff(inputMessages(i))
+                    note = inputMessages(i).Note + MIDI_BIAS;
                     active_notes = active_notes(active_notes~=note);
                 end
             catch ME
-                disp('picked up an invalid signal')
+                disp(ME)
             end
         end
-        active_notes = sort([active_notes, note]);
         if ~isempty(active_notes)
-            [correctedFreqs, F] = Algorithm1(active_notes, ET_notes,...
-                ET_tolerance_bands, offet);
+            [accomp_freq, F] = Algorithm1(unique(active_notes), ET_notes,...
+                ET_tolerance_bands, offset);
         end
     end
     
@@ -58,15 +64,15 @@ while true
         % find the pitch of the sampled input
         % TODO invesitage audio toolbox' pitch command
         d_sample = deviceReader();
-        [Pxx1, f1] = pwelch(d_sample, gausswin(Nfft),Nfft/2,Nfft,sr);
+        [Pxx1, f1] = pwelch(d_sample, gausswin(Nfft),Nfft/2,Nfft,mic_sr);
         [~,loc] = max(Pxx1);
         estimate = f1(loc);
         sung_freq = estimate(1,:);
         
         % Calculate Multiples from the alg output and the sample rate
         % conversion from the input to get it to sound at the fundamental
-        fund_multiples = accomp_freq./f;
-        sr2 = sr*f/sung_freq;
+        fund_multiples = accomp_freq./F;
+        sr2 = mic_sr*F/sung_freq;
         
         %play the notes:
         for note=1:length(fund_multiples)
