@@ -1,4 +1,4 @@
-InputIndexes = [48, 52, 55] + 1;
+InputIndexes = [48, 52, 55, 58] + 1;
 low_index = -3;
 high_index = 88;
 [ET_notes, ET_tolerance_bands] = generateETNotes(low_index,high_index);
@@ -22,13 +22,14 @@ RS_tolerance = min(log2Tolerances(2,:) - log2chordtuned);
 overall_offset = sum(log2chordtuned - log2chorduntuned);
 
 if overall_offset > 0
-    change = - min(overall_offset, LS_tolerance);
+    change = - min(overall_offset, LS_tolerance)/length(tuned_chord);
     retuned_notes = tuned_chord * 2^(change);
     retuned_f = f * 2^(change);
 elseif overall_offset < 0
-    change =  min(-overall_offset, RS_tolerance);
+    change =  min(-overall_offset, RS_tolerance)/length(tuned_chord);
     retuned_notes = tuned_chord * 2^(change);
     retuned_f = f * 2^(change); 
 end
-new_offset = sum(log2(retuned_notes) - log2chorduntuned);
+log2returned = log2(retuned_notes);
+new_offset = sum(log2returned - log2chorduntuned);
 
