@@ -22,11 +22,11 @@ RS_tolerance = min(log2Tolerances(2,:) - log2chordtuned);
 overall_offset = sum(log2chordtuned - log2chorduntuned);
 
 if overall_offset > 0
-    change = - min(overall_offset, RS_tolerance);
+    change = - min(overall_offset, LS_tolerance);
     retuned_notes = tuned_chord * 2^(change);
     retuned_f = f * 2^(change);
 elseif overall_offset < 0
-    change = - max(overall_offset, -1*LS_tolerance);
+    change =  min(-overall_offset, RS_tolerance);
     retuned_notes = tuned_chord * 2^(change);
     retuned_f = f * 2^(change); 
 end
