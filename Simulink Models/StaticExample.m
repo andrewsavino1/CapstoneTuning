@@ -1,4 +1,4 @@
-[d,sr]=audioread('three_note_progression.wav'); 
+[d,sr]=audioread('benSingingE.wav'); 
 samp_freq = .2;
 rec_len = length(d)/sr;
 num_chords = 4;

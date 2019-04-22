@@ -1,14 +1,14 @@
-function [outputArg1,outputArg2] = plotWaves(beforeFreqs, afterFreqs, fig)
+function [] = plotWaves(beforeFreqs, afterFreqs, fig, f)
 %PLOTWAVES Summary of this function goes here
 %   Detailed explanation goes here
 clf(fig)
 
-outer_lim = 10/afterFreqs(1);
+outer_lim = 10/f;
 x = linspace(0,outer_lim);
 %assert size(beforeFreqs) == size(afterFreqs)
 
 %% 'before' graph
-subplot(1,2,1);
+subplot(2,1,1);
 hold on
 
 y = sin(beforeFreqs' .* x);
@@ -23,7 +23,7 @@ title('Algorithm input')
 
 
 %% 'after' graph
-subplot(1,2,2);
+subplot(2,1,2);
 hold on
 y = sin(afterFreqs' .* x);
 plot(x,y)

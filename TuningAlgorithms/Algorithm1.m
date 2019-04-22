@@ -1,4 +1,4 @@
-function [outputFreqs, F] = Algorithm1(InputIndexes, ET_notes, ET_tolerance_bands, offset)
+function [outputFreqs, F, InputIndexes] = Algorithm1(InputIndexes, ET_notes, ET_tolerance_bands, offset)
 %ALGORITHM1 Seeks to maximize the fundamental Frequency st. adjusting the
 %original notes as little as possible
 tic  % start timer
@@ -21,7 +21,7 @@ adj_distances(num_notes) = ET_notes(InputIndexes(1)-offset);
 starting_F = min(adj_distances);
 
 %Search by iterating down the OT series starting from starting_F
-Findex = find(ET_notes > starting_F, 1);
+Findex = find(ET_notes >= starting_F, 1);
 
 while 1
     if Findex == 0
@@ -31,7 +31,7 @@ while 1
     end
     F = ET_notes(Findex);
     max_overtones = max_multiple;%min(ET_tolerance_bands(2,num_notes), max_multiple);
-    multipleF = F.*(1:max_overtones);
+    multipleF = F * (1:max_overtones);
     ovt = 1;
     outputFreqs = zeros(1,num_notes);
     

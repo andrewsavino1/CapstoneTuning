@@ -10,8 +10,9 @@ function [] = playNotes(frequencies, duration, amp)
     values = 0:(1/sampling_frequency):duration;
     test = 2*pi*frequencies'*values;
     a = amp*sin(test);
-    for i=1:size(a,1)
-        sound(a(i,:));
-    end
+    %for i=1:size(a,1)
+    %    sound(a(i,:));
+    %end
+    sound(sum(a));
 end
 

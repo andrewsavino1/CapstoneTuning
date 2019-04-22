@@ -27,21 +27,27 @@ inputChords4 =[22 26 29 32; % dom 7
 notes = 44:44+19;
 lowIndex = -30;
 numNotes = 5;
+numTrials =1000;
 [ET_notes, ET_tolerance_bands] = generateETNotes(lowIndex,88);
-times = zeros(1,100);
-outputs = zeros(100,numNotes);
-funds = zeros(1,100);
-for i = 1:1000
+times = zeros(2,numTrials);
+outputs = zeros(numTrials,numNotes);
+funds = zeros(1,numTrials);
+% improvements = zeros(1,numTrials);
+for i = 1:numTrials
    chord = sort(datasample(notes, numNotes,'Replace', false));
    
    tic
-   [o,F] = Algorithm1(chord, ET_notes, ET_tolerance_bands, lowIndex-1);
-   times(i) = toc;
+   [o,F, ii] = Algorithm1(chord, ET_notes, ET_tolerance_bands, lowIndex-1);
+   times(1,i) = toc;
+   [o2,F2,improvement] = Algorithm2(o, F, ii, ET_notes, ET_tolerance_bands);
+   times(2,i) = toc;
    outputs(i,:) = o;
    funds(i) = F;
+   %improvements(i) = improvement;
+   tot_improv(numNotes-1,i) = improvement;
     
 end
-histogram(times)
+histogram(times(1,:))
 xlabel('Time (seconds)')
 ylabel('Frequency')
 title('Runtime of 5-note Chords')
