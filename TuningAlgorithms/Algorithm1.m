@@ -53,6 +53,7 @@ while 1
         Findex = Findex - 1;
     else
         F = F* 2^(-standardization/12);
+        InputIndexes = InputIndexes - standardization;
         break;
     end
     disp(outputFreqs);
