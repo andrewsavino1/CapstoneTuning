@@ -6,35 +6,39 @@ Tsamp = 1/fsamp;
 
 audioFile = 'SENOL_SAVINO_ET.wav';
 audioFile2 = 'SENOL_SAVINO_JI.wav';
+benAudio = 'benSingingA.wav';
 
-[input_signal, fs] = audioread(audioFile);
+[input_signal, fs] = audioread(benAudio);
 [input_signal2, fs2] = audioread(audioFile2);
 
 t1 = 1:length(input_signal);
 
 
-subplot(2,1,1)
-new_signal = input_signal2(:,1) - input_signal(:,1);
+% subplot(2,1,1)
+% new_signal = input_signal2(:,1) - input_signal(:,1);
 
-[s, w, t] = spectrogram(input_signal(1:205340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp);
-spectrogram(input_signal(1:215340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp, 'yaxis');
-
-title('Equal Temperament');
-set(gca, 'yscale','log');
-ylim([0.2 5]);
+% [s, w, t] = spectrogram(input_signal(1:205340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp);
+% spectrogram(input_signal(1:215340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp, 'yaxis');
+% 
+% title('Equal Temperament');
+% set(gca, 'yscale','log');
+% ylim([0.2 5]);
 
 
 % Plot frequency spectrum
-subplot(2,1,2);
-% spectrogram(input_signal2(:,1),gausswin(Nfft),Nfft/16,Nfft,fsamp, 'yaxis');
-set(gca, 'yscale','log');
-ylim([0.2 5]);
+% subplot(2,1,2);
+% [s, w, t] = spectrogram(input_signal2(1:205340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp);
+% spectrogram(input_signal2(1:215340,1),gausswin(Nfft),Nfft/16,Nfft,fsamp, 'yaxis');
+% 
+% set(gca, 'yscale','log');
+% ylim([0.2 5]);
 
-[Pxx,f] = pwelch(input_signal,gausswin(Nfft),Nfft/32,Nfft,fsamp);
+
+[Pxx,f] = pwelch(input_signal(:,1),gausswin(Nfft),Nfft/32,Nfft,fsamp);
 
 
 loglog(f,Pxx);
-ylabel('PSD'); 
+ylabel('PSD Intensity'); 
 xlabel('Frequency (Hz)');
 axis auto;
 grid on;
@@ -46,8 +50,8 @@ estimate = f(loc);
 FREQ_ESTIMATE_gaussian = estimate(1,:);
 
 
-title('Just Intonation');
-title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian(1)),' Hz']);
+title('Power Spectral Density (PSD) of a sung "A"');
+% title(['PSD Frequency estimate = ',num2str(FREQ_ESTIMATE_gaussian(1)),' Hz']);
 
 
 % soundsc(input_signal, 44100)
